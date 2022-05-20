@@ -26,6 +26,7 @@ size_t to_size_t(std::string const& str)
 
 int main(int argc, char* argv[]) {
     size_t bitstream_size { 0 };
+    std::ifstream input_file;
 
     if (argc < 2) {
         std::cerr << "\033[01;31mError: \033[0mAt the minimum, please provide a file with your two bitstreams for comparison.\nSize flags are preferred as well." << std::endl;
@@ -33,7 +34,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (argv[1][0] == '-' && argv[1][1] == '-' && argc >= 3) {
-        std::ifstream input_file(argv[2]);
+        input_file.open(argv[2]);
         if (!input_file.is_open()) {
             std::cerr << "\033[01;31mError: \033[0mFile not found. Check relative file path." << std::endl;
             exit(1);
@@ -43,7 +44,7 @@ int main(int argc, char* argv[]) {
     }
     else if (argc < 3 && argc >=2) {
         std::cerr << "\033[01;33mWarning: \033[0mSize of bitstring not provided. See --help" << std::endl;
-        std::ifstream input_file(argv[1]);
+        input_file.open(argv[1]);
         if (!input_file.is_open()) {
             std::cerr << "\033[01;31mError: \033[0mFile not found. Check relative file path and ensure that it is a .txt file." << std::endl;
             exit(1);
