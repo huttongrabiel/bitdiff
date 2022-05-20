@@ -54,9 +54,12 @@ int main(int argc, char* argv[]) {
 
     // Get total count of 0s and 1s in given file/string and divide that by two
     char bit = 0;
+    std::string bitstream;
     while (input_file.get(bit)) {
-        if (bit == '0' || bit == '1')
+        if (bit == '0' || bit == '1') {
             bitstream_size++;
+            bitstream.push_back(bit);
+        }
     }
     bitstream_size /= 2;
 
