@@ -26,6 +26,7 @@ size_t to_size_t(std::string const& str)
 
 int main(int argc, char* argv[]) {
     size_t bitstream_size { 0 };
+    size_t size_flag_size { 0 };
     std::ifstream input_file;
 
     if (argc < 2) {
@@ -40,7 +41,7 @@ int main(int argc, char* argv[]) {
             exit(1);
         }
         std::string string_argv2 = static_cast<std::string>(argv[1]);
-        bitstream_size = to_size_t(string_argv2.substr(2, string_argv2.length()-2));
+        size_flag_size = to_size_t(string_argv2.substr(2, string_argv2.length()-2));
     }
     else if (argc < 3 && argc >=2) {
         std::cerr << "\033[01;33mWarning: \033[0mSize of bitstring not provided. See --help" << std::endl;
@@ -51,10 +52,18 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    if (!bitstream_size) {
-        // Get total count of 0s and 1s in given file/string and divide that by two
-        bitstream_size = 5;
-        std::cout << bitstream_size << std::endl;
+    // Get total count of 0s and 1s in given file/string and divide that by two
+    char bit = 0;
+    while (input_file.get(bit)) {
+        if (bit == '0' || bit == '1')
+            bitstream_size++;
     }
+    bitstream_size /= 2;
+
+    if (bitstream_size != size_flag_size && size_flag_size != 0) {
+        std::cerr << "\033[1;31mError: \033[0mBitstream in file has different size than specified bit stream" << std::endl;
+        exit(1);
+    }
+
 }
 
