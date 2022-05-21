@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
     bitstream_size /= 2;
 
     if (bitstream_size != size_flag_size && size_flag_size != 0) {
-        std::cerr << "\033[1;31mError: \033[0mBitstream in file has different size than specified bit stream" << std::endl;
+        std::cerr << "\033[1;31mError: \033[0mBitstream in file has different size than specified bitstream size." << std::endl;
         exit(1);
     }
 
