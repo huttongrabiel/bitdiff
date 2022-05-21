@@ -6,12 +6,13 @@
 #include <stdlib.h>
 #include <fstream>
 
+// FIXME: There has to be a more elegant way of doing this
 void bit_diff(std::string const& bitstream, size_t bitstream_size)
 {
     std::string bitstream_a = bitstream.substr(0, bitstream_size);
     std::string bitstream_b = bitstream.substr(bitstream_size, bitstream_size);
 
-    for (int i = 0; i < bitstream_size; i++) {
+    for (size_t i = 0; i < bitstream_size; i++) {
         if (bitstream_a[i] == bitstream_b[i])
             std::cout << "\033[1;32m" << bitstream_a[i] << "\033[0m";
         else
@@ -22,7 +23,7 @@ void bit_diff(std::string const& bitstream, size_t bitstream_size)
 
     std::cout << "--------------------------------" << std::endl;
 
-    for (int i = 0; i < bitstream_size; i++) {
+    for (size_t i = 0; i < bitstream_size; i++) {
         if (bitstream_a[i] == bitstream_b[i])
             std::cout << "\033[1;32m" << bitstream_b[i] << "\033[0m";
         else
@@ -55,6 +56,7 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
+    // Bad CLI parsing but it works don't hate me
     if (argv[1][0] == '-' && argv[1][1] == '-' && argc >= 3) {
         input_file.open(argv[2]);
         if (!input_file.is_open()) {
